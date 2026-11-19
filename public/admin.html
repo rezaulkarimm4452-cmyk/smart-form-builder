@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>অ্যাডমিন প্যানেল | SmartForm Dashboard</title>
+  <meta name="description" content="ফর্ম কনফিগারেশন এবং আবেদনসমূহ পর্যালোচনার অ্যাডমিন ড্যাশবোর্ড।">
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%22 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="/admin" class="brand-logo">
+          <div class="brand-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </div>
+          <span>স্মার্ট<span style="color: var(--green-600);">অ্যাডমিন</span></span>
+        </a>
+        <span class="badge badge-success" style="font-size: 0.75rem; padding: 2px 8px;">ড্যাশবোর্ড</span>
+      </div>
+
+      <div class="nav-actions">
+        <a href="/" target="_blank" class="btn btn-outline btn-sm" title="সরাসরি ফর্মটি ওপেন করুন">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>পাবলিক ফর্ম দেখুন</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Main Workspace -->
+  <main class="admin-wrapper">
+    <div class="container">
+
+      <!-- Navigation Tabs -->
+      <nav class="admin-tabs" aria-label="Dashboard Tabs">
+        <button type="button" id="tab-btn-submissions" class="tab-btn active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span>আবেদনসমূহ ও রিপোর্ট</span>
+        </button>
+
+        <button type="button" id="tab-btn-builder" class="tab-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>ফর্ম বিল্ডার ও কনফিগারেশন</span>
+        </button>
+      </nav>
+
+      <!-- Stat Overview Cards -->
+      <section class="stats-grid" aria-label="Overview Statistics">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">সর্বমোট আবেদন</span>
+            <span id="stat-total-submissions" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background-color: #dbeafe; color: #1d4ed8;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">আজকের আবেদন</span>
+            <span id="stat-today-submissions" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background-color: #fef3c7; color: #b45309;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">ফর্মের স্ট্যাটাস</span>
+            <div style="margin-top: 4px;">
+              <span id="stat-status-badge" class="badge badge-success">
+                <span class="badge-dot"></span> সক্রিয়
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background-color: #f3e8ff; color: #7e22ce;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">ফর্মের ইনপুট ফিল্ড</span>
+            <span id="stat-fields-count" class="stat-value">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 1: SUBMISSIONS TABLE VIEW -->
+      <section id="section-submissions">
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span>সকল আবেদনের তালিকা</span>
+            </div>
+
+            <div class="toolbar-actions">
+              <button type="button" id="btn-export-csv" class="btn btn-secondary btn-sm" title="CSV ফাইল হিসেবে ডাউনলোড করুন">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>এক্সেল/CSV ডাউনলোড</span>
+              </button>
+              <button type="button" id="btn-refresh-submissions" class="btn btn-secondary btn-sm" title="তালিকা রিফ্রেশ করুন">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>রিফ্রেশ</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <!-- Search Filter Bar -->
+            <div class="table-toolbar">
+              <div class="search-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-submissions-input" placeholder="কোড, নাম বা যেকোনো তথ্য দিয়ে খুঁজুন..." />
+              </div>
+            </div>
+
+            <!-- Table Container -->
+            <div id="submissions-table-wrap" class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ক্রমিক</th>
+                    <th>আবেদন কোড</th>
+                    <th>আবেদনকারীর নাম / প্রধান তথ্য</th>
+                    <th>জমার সময়</th>
+                    <th style="text-align: right;">অ্যাকশন</th>
+                  </tr>
+                </thead>
+                <tbody id="submissions-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="submissions-empty-state" class="empty-placeholder" style="display: none;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+              </svg>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem;">এখনও কোনো আবেদন জমা পড়েনি</h3>
+              <p style="font-size: 0.9rem;">পাবলিক ফর্ম থেকে আবেদন জমা দিলে তা এখানে সাথে সাথে দেখতে পাবেন।</p>
+              <div style="margin-top: 1rem;">
+                <a href="/" target="_blank" class="btn btn-primary btn-sm">একটি টেস্ট আবেদন করুন</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: FORM BUILDER VIEW -->
+      <section id="section-builder" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <span>ফর্ম কনফিগারেশন ও ফিল্ড বিল্ডার</span>
+            </div>
+
+            <button type="button" id="btn-save-form-config" class="btn btn-primary btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span>সংরক্ষণ ও অ্যাক্টিভ করুন</span>
+            </button>
+          </div>
+
+          <div class="panel-body">
+            
+            <!-- Basic Settings -->
+            <div class="form-config-header">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="builder-form-title">ফর্মের মূল শিরোনাম *</label>
+                <input type="text" id="builder-form-title" class="form-input" placeholder="যেমন: অনলাইন আবেদন ও নিবন্ধন ফর্ম" />
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="builder-form-desc">ফর্মের নির্দেশাবলী / বিবরণ</label>
+                <textarea id="builder-form-desc" class="form-textarea" style="min-height: 75px;" placeholder="আবেদনকারীদের জন্য প্রয়োজনীয় নির্দেশনা লিখুন..."></textarea>
+              </div>
+            </div>
+
+            <!-- Form Active Toggle -->
+            <div class="toggle-switch-wrapper">
+              <div class="switch-label">
+                <span class="switch-title">পাবলিক সাইটে ফর্মটি সক্রিয় রাখুন</span>
+                <span class="switch-desc">সক্রিয় থাকলে ইউজাররা আবেদন করতে পারবে, বন্ধ থাকলে আবেদন প্রক্রিয়া স্থগিত থাকবে।</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="builder-form-active" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- Fields Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <h3 style="font-size: 1.1rem; color: var(--text-main);">ফর্মের ইনপুট ফিল্ডসমূহ</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">প্রয়োজন অনুযায়ী নতুন ফিল্ড যোগ করুন, পরিবর্তন করুন বা ক্রম সাজান।</p>
+              </div>
+              <button type="button" id="btn-add-new-field" class="btn btn-outline btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>নতুন ফিল্ড যোগ করুন</span>
+              </button>
+            </div>
+
+            <!-- Fields Dynamic List -->
+            <div id="builder-fields-container" class="builder-fields-list">
+              <!-- Rendered by JS -->
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       MODAL: ADD / EDIT FIELD
+       ========================================================================= -->
+  <div id="field-modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="field-modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="field-modal-title" class="modal-title">নতুন ফিল্ড যোগ করুন</h3>
+        <button type="button" id="btn-close-field-modal" class="modal-close-btn" aria-label="বন্ধ করুন">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="field-modal-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="field-modal-label">ফিল্ডের শিরোনাম / প্রশ্ন *</label>
+            <input type="text" id="field-modal-label" class="form-input" placeholder="যেমন: আপনার শিক্ষাগত যোগ্যতা" required />
+          </div>
+
+          <!-- Field Type with CUSTOM DROPDOWN (No default select) -->
+          <div class="form-group">
+            <label class="form-label">ফিল্ডের ধরন (Field Type) *</label>
+            <div id="field-type-select-box">
+              <!-- CustomSelect mounts here -->
+            </div>
+          </div>
+
+          <!-- Options Input (Only shown for Select or Radio) -->
+          <div id="field-options-group" class="form-group" style="display: none;">
+            <label class="form-label" for="field-modal-options">অপশনসমূহ (কমা দিয়ে আলাদা করুন) *</label>
+            <input type="text" id="field-modal-options" class="form-input" placeholder="যেমন: অপশন ১, অপশন ২, অপশন ৩" />
+            <span class="field-help-text">প্রতিটি অপশন একটি কমা (,) দিয়ে লিখুন।</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="field-modal-placeholder">প্লেসহোল্ডার টেক্সট (ঐচ্ছিক)</label>
+            <input type="text" id="field-modal-placeholder" class="form-input" placeholder="যেমন: উদাহরণস্বরূপ..." />
+          </div>
+
+          <div style="margin-top: 1rem; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="field-modal-required" style="width: 18px; height: 18px; accent-color: var(--green-600); cursor: pointer;" />
+            <label for="field-modal-required" style="font-weight: 600; color: var(--text-main); cursor: pointer;">
+              এই ফিল্ডটি পূরণ করা আবশ্যক (Required)
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-field-modal" class="btn btn-secondary btn-sm">বাতিল</button>
+          <button type="submit" class="btn btn-primary btn-sm">সংরক্ষণ করুন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: VIEW SUBMISSION DETAILS
+       ========================================================================= -->
+  <div id="details-modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="detail-modal-header-title">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <div>
+          <h3 id="detail-modal-header-title" class="modal-title">আবেদনের পূর্ণাঙ্গ বিবরণ</h3>
+          <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
+            <span id="detail-modal-code" class="code-badge">REG-0000</span>
+            <span id="detail-modal-date" style="font-size: 0.825rem; color: var(--text-muted);">তারিখ</span>
+          </div>
+        </div>
+        <button type="button" id="btn-close-details-modal" class="modal-close-btn" aria-label="বন্ধ করুন">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div id="detail-fields-list" class="detail-item-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" onclick="window.print()" class="btn btn-secondary btn-sm">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span>প্রিন্ট করুন</span>
+        </button>
+        <button type="button" id="btn-close-details-footer" class="btn btn-primary btn-sm">ঠিক আছে</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="/js/custom-select.js"></script>
+  <script src="/js/admin-app.js"></script>
+</body>
+</html>

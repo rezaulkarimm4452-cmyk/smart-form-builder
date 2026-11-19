@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>অনলাইন আবেদন ও নিবন্ধন ফর্ম | SmartForm</title>
+  <meta name="description" content="সহজ ও আধুনিক অনলাইন আবেদন ও রেজিস্ট্রেশন প্ল্যাটফর্ম।">
+  
+  <!-- Favicon / SVG Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%22 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo" aria-label="SmartForm হোম">
+        <div class="brand-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <span>স্মার্ট<span style="color: var(--green-600);">ফর্ম</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="/admin" class="btn btn-outline btn-sm" title="অ্যাডমিন প্যানেলে যান">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>অ্যাডমিন প্যানেল</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="form-page-wrapper">
+    <div class="container-narrow">
+
+      <!-- Loading State -->
+      <div id="form-loading-state" class="form-loading-card">
+        <div class="loading-spinner"></div>
+        <p style="color: var(--text-muted); font-size: 1.05rem; font-weight: 500;">ফর্ম লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
+      </div>
+
+      <!-- Inactive Form State -->
+      <div id="form-inactive-state" class="form-inactive-card" style="display: none;">
+        <div style="width: 64px; height: 64px; background-color: #fee2e2; color: #dc2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #991b1b;">আবেদন গ্রহণ বর্তমানে বন্ধ রয়েছে</h2>
+        <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 1.5rem;">
+          এই ফর্মটিতে বর্তমানে নতুন আবেদন গ্রহণ করা হচ্ছে না। বিস্তারিত জানতে অনুগ্রহ করে কর্তৃপক্ষের সাথে যোগাযোগ করুন।
+        </p>
+        <a href="/admin" class="btn btn-secondary btn-sm">অ্যাডমিন প্যানেলে ফর্মটি অ্যাক্টিভ করুন</a>
+      </div>
+
+      <!-- Active Form Container -->
+      <div id="form-dynamic-container" style="display: none;">
+        <form id="public-registration-form" class="form-card-container" novalidate>
+          
+          <!-- Header Card -->
+          <div class="form-header-card">
+            <div class="form-header-banner"></div>
+            <div class="form-header-content">
+              <div class="form-status-bar">
+                <span class="badge badge-success">
+                  <span class="badge-dot"></span>
+                  <span>আবেদন গ্রহণ চলছে</span>
+                </span>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">নিরাপদ ও সহজ প্রক্রিয়া</span>
+              </div>
+              <h1 id="form-title-text" class="form-title">অনলাইন আবেদন ও নিবন্ধন ফর্ম</h1>
+              <p id="form-desc-text" class="form-description">অনুগ্রহ করে নিচের তথ্যগুলো মনোযোগ দিয়ে সঠিকভাবে পূরণ করুন।</p>
+              
+              <div class="form-required-note">
+                * চিহ্নিত ফিল্ডগুলো পূরণ করা আবশ্যক
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Questions List -->
+          <div id="dynamic-fields-wrapper" class="form-card-container">
+            <!-- Injected by JavaScript -->
+          </div>
+
+          <!-- Footer Actions Card -->
+          <div class="form-footer-card">
+            <button type="submit" id="btn-submit-form" class="btn btn-submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span>আবেদন জমা দিন</span>
+            </button>
+            <button type="button" id="btn-clear-form" class="btn-clear">
+              ফর্ম পরিষ্কার করুন
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Success Confirmation View -->
+      <div id="form-success-state" class="success-card" style="display: none;">
+        <div class="success-icon-wrap">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        
+        <h2 class="success-title">আবেদন সফলভাবে সম্পন্ন হয়েছে!</h2>
+        <p class="success-message">
+          আপনার আবেদনটি সফলভাবে ডাটাবেসে সংরক্ষিত হয়েছে। নিচের আবেদন কোডটি ভবিষ্যতে ব্যবহারের জন্য সংরক্ষণ করুন।
+        </p>
+
+        <div class="submission-code-box">
+          <span id="display-submission-code" class="submission-code-text">REG-20261119-0000</span>
+          <button type="button" id="btn-copy-code" class="btn-copy-code" title="কপি করুন">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>কপি করুন</span>
+          </button>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem; text-align: left;">
+          <h4 style="font-size: 0.95rem; color: var(--text-main); margin-bottom: 0.75rem; font-weight: 600;">
+            আবেদনের সংক্ষিপ্ত তথ্য:
+          </h4>
+          <div id="submission-summary-preview">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button type="button" id="btn-submit-another" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"></path>
+            </svg>
+            <span>নতুন আরেকটি আবেদন করুন</span>
+          </button>
+          <a href="/admin" class="btn btn-secondary">
+            <span>অ্যাডমিন ড্যাশবোর্ডে দেখুন</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="/js/custom-select.js"></script>
+  <script src="/js/form-app.js"></script>
+</body>
+</html>
